@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load humanize %}  
+
+{% block title %}Reviews{% endblock %}
+
+{% block head %}
+  <link href="{{ STATIC_URL }}css/search.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/questions.css" rel="stylesheet">
+  <script src="{{ STATIC_URL }}js/questions.js"></script>
+{% endblock head %}
+
+{% block main %}
+
+
+
+  <div class="page-header">
+
+    <h1>Web Search using RAAS</h1>
+    <br/>
+
+    <div class="container-fluid">
+<!--             <img src="http://www.enterwebhub.com/wp-content/uploads/2013/02/bing_logo.jpg" style="width: 180px" alt="Picture of Rango" />  -->   
+<!--         <p>Search for an Online Source</p> -->
+        <form class="span8 form-search" id="search_form" method="post" action="/questions/">
+            {% csrf_token %}
+            <input type="text" class="input-long search-query"  name="query" value="{{ category_name }}" id="query" />
+            <button type="submit" class="btn btn-success" name="submit" value="Search">Search</button>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        {% if result_list %}
+            <!-- Display search results in an ordered list -->
+            <ol>
+                {% for result in result_list %}
+                <li>
+                    {% if user.is_authenticated %}
+            <button data-catid="{{ result.summary }}" data-title="{{ result.title }}" data-url="{{ result.link }}" class="rango-add btn btn-mini btn-info" type="button">Review</button>
+            {% endif %}   <button  id="datapreview"  class="rango-add btn btn-mini btn-info" type="button"> Preview  </button> 
+                    <strong><a href="{{ result.link }}" >{{ result.title }}</a></strong><br />
+                    <p   >{{ result.summary }}</p>
+
+                 <br/>
+                 <iframe  id  = "hyperlinkframe" src="{{ result.link }}" width="800" height="700" frameBorder="0"  style =
+                 "display:none; overflow:hidden;" scrolling="no" ">
+</iframe>
+               <br/>   
+                   <script>
+$( "#datapreview" ).hover(
+  function() {
+    $( "#hyperlinkframe" ).show( "slow", function() {
+    // Animation complete.
+  });
+  }
+);
+
+$( "#datapreview" ).click(
+  function() {
+    $( "#hyperlinkframe" ).hide( "slow", function() {
+    // Animation complete.
+  });
+  }
+);
+</script>
+
+<hr/>
+                </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <br/>
+            <p>No results found</p>
+        {% endif %}
+    </div>
+
+
+
+
+    <a href="{% url 'ask' %}" class="btn btn-primary pull-right">
+      <span class="glyphicon glyphicon-bullhorn"></span> {% trans "Start Review" %}
+    </a>
+    <h1>{% trans "Reviews" %}</h1>
+  </div>
+  <div class="questions">
+    <ul class="nav nav-tabs" style="margin-bottom: 1.4em">
+      <li{% if active == 'unanswered' %} class="active"{% endif %}><a href="{% url 'unanswered' %}">{% trans "Under Review" %}</a></li>
+      <li{% if active == 'answered' %} class="active"{% endif %}><a href="{% url 'answered' %}">{% trans "Reviewed" %}</a></li>
+      <li{% if active == 'all' %} class="active"{% endif %}><a href="{% url 'all' %}">{% trans "All Reviews" %}</a></li>
+    </ul>
+    {% for question in questions %}
+      {% include 'questions/partial_question.html' with question=question %}
+    {% empty %}
+      <h4 class="no-data">{% trans "No review to display" %}</h4>
+    {% endfor %}
+    {% include 'paginator.html' with paginator=questions %}
+  </div>
+{% endblock main %}
