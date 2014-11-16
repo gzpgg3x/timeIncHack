@@ -51,7 +51,8 @@ def unanswered(request):
 
 @login_required
 def all(request):
-    questions = Question.objects.all()
+    questions = Question.objects.order_by('-favorites').all()
+    # questions = Question.objects.all()    
     return _questions(request, questions, 'all')
 
 @login_required
