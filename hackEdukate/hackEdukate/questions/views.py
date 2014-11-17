@@ -47,6 +47,7 @@ def answered(request):
 @login_required
 def unanswered(request):
     questions = Question.get_unanswered()
+    # questions = Question.order_by('-favorites').get_unanswered()    
     return _questions(request, questions, 'unanswered')
 
 @login_required
@@ -172,7 +173,8 @@ def auto_add_page(request):
     if request.method == 'GET':
         cat_id = request.GET['description']
         url = request.GET['url']
-        title = request.GET['title']
+        title = request.GET['title']        
+        # title = request.GET['title'][0 :10]
         print cat_id
         print url
         print title

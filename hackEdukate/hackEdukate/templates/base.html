@@ -34,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-<!--               <a class="navbar-brand" href="{% url 'home' %}">REVIEW AS A SERVICE, aka RAAS</a> -->
+              <a class="navbar-brand" href="{% url 'home' %}">contentAB.ly</a>
             </div>
             <div class="collapse navbar-collapse" id="menu">
               <ul class="nav navbar-nav">
@@ -45,14 +45,14 @@
                 </li>
                 <li><a href="{% url 'feeds' %}">{% trans 'TIMELINE' %}</a></li>
                 <!-- <li><a href="{% url 'articles' %}">{% trans 'hackBlog' %}</a></li> -->
-                <li><a href="{% url 'questions' %}">{% trans 'REVIEWS' %}</a></li>
-                <li><a href="{% url 'network' %}">{% trans 'REVIEWERS' %}</a></li>
+                <li><a href="{% url 'questions' %}">{% trans 'CONTENT' %}</a></li>
+                <li><a href="{% url 'network' %}">{% trans 'USERS' %}</a></li>
 <!--                 <li><a href="{% url 'isearch' %}">{% trans 'SEARCH' %}</a></li> -->                
               </ul>
               {% if not hide_search %}
                 <form class="navbar-form navbar-left" role="search" action="{% url 'search' %}">
-                  <div class="input-group" style="width:210px">
-                    <input type="text" class="form-control" name="q" placeholder="Search">
+                  <div class="input-group" style="width:500px">
+                    <input type="text" class="form-control" name="q" placeholder="Search contentAB.ly">
                     <span class="input-group-btn">
                       <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </span>

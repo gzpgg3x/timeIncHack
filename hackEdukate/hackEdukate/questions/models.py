@@ -5,7 +5,7 @@ import markdown
 
 class Question(models.Model):
     user = models.ForeignKey(User)
-    title = models.CharField(max_length=255)
+    title = models.TextField(max_length=255)
     description = models.TextField(max_length=2000)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now_add=True)

@@ -32,6 +32,10 @@
                 <li>
                     <strong><a href="{{ result.link }}">{{ result.title }}</a></strong><br />
                     <em>{{ result.summary }}</em>
+
+
+                    <iframe  class  = "hyperlinkframe" src="{{ result.link }}" width="800" height="700" frameBorder="0"  style =
+                 "overflow:hidden;" scrolling="no" ">
                 </li>
             {% endfor %}
             </ol>
